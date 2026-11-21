@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UX Flow Mapper</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>UX Flow Mapper</h1>
+    <div id="live" role="status" aria-live="polite"></div>
+  </header>
+  <div id="errors" role="alert"></div>
+
+  <div class="workspace">
+    <aside class="navigator">
+      <h2>Flows</h2>
+      <nav aria-label="Flows">
+        <p id="flow-empty">No flows yet</p>
+        <ul id="flow-list" aria-label="Flow list" class="plain-list"></ul>
+      </nav>
+
+      <form id="new-flow-form" novalidate>
+        <label for="new-flow-title">New flow title</label>
+        <input id="new-flow-title" type="text" maxlength="120" autocomplete="off">
+        <button id="add-flow-btn" type="submit" class="primary">Add flow</button>
+      </form>
+
+      <div class="demo-block">
+        <button id="demo-btn" type="button">Create demo flow</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <p id="placeholder">Select a flow or add a new one to begin.</p>
+
+      <div id="editor" class="editor" hidden>
+        <section class="center">
+          <div class="toolbar">
+            <div class="field grow">
+              <label for="flow-title">Flow title</label>
+              <input id="flow-title" type="text" maxlength="120" autocomplete="off">
+            </div>
+            <div class="save-group">
+              <button id="save-btn" type="button" class="primary">Save</button>
+              <span id="save-state"></span>
+            </div>
+          </div>
+
+          <div id="conflict-bar" class="conflict-bar" hidden>
+            <p>Another save created a newer revision. Your draft is kept here until you decide.</p>
+            <div class="button-row">
+              <button id="reload-btn" type="button">Reload latest (discard my draft)</button>
+              <button id="download-btn" type="button">Download draft JSON</button>
+            </div>
+          </div>
+
+          <div class="canvas-pane">
+            <svg id="canvas" role="group" aria-label="Flow canvas" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 1000 700" width="1000" height="700">
+              <defs>
+                <pattern id="grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                  <path d="M10 0 H0 V10" class="grid-line" fill="none"></path>
+                </pattern>
+                <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8"
+                        orient="auto-start-reverse">
+                  <path d="M0 0 L10 5 L0 10 z" class="arrow-head"></path>
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="1000" height="700" fill="url(#grid-pattern)" class="grid-bg"></rect>
+              <g id="edges"></g>
+              <g id="nodes"></g>
+            </svg>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <section class="card">
+            <h2>Screens</h2>
+            <button id="add-screen-btn" type="button" class="primary">Add screen</button>
+            <ul id="screen-list" aria-label="Screen list" class="plain-list"></ul>
+          </section>
+
+          <section class="card">
+            <h2>Selected screen</h2>
+            <p id="no-selection">Select a screen to edit it.</p>
+            <div id="inspector" hidden>
+              <div class="field">
+                <label for="screen-label">Screen label</label>
+                <input id="screen-label" type="text" maxlength="80" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="screen-kind">Screen kind</label>
+                <select id="screen-kind">
+                  <option value="screen">Screen</option>
+                  <option value="success_exit">Success exit</option>
+                  <option value="alternate_exit">Alternate exit</option>
+                </select>
+              </div>
+              <div class="pair">
+                <div class="field">
+                  <label for="screen-x">X</label>
+                  <input id="screen-x" type="number" min="0" max="94" step="1">
+                </div>
+                <div class="field">
+                  <label for="screen-y">Y</label>
+                  <input id="screen-y" type="number" min="0" max="67" step="1">
+                </div>
+              </div>
+              <div class="button-row" role="group" aria-label="Move screen">
+                <button id="move-left" type="button">Move left</button>
+                <button id="move-right" type="button">Move right</button>
+                <button id="move-up" type="button">Move up</button>
+                <button id="move-down" type="button">Move down</button>
+              </div>
+              <div class="check-row">
+                <input id="screen-start" type="checkbox">
+                <label for="screen-start">Start screen</label>
+              </div>
+              <button id="remove-screen-btn" type="button" class="danger">Remove screen</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Transitions</h2>
+            <form id="transition-form" novalidate>
+              <div class="field">
+                <label for="transition-source">Transition source</label>
+                <select id="transition-source"></select>
+              </div>
+              <div class="field">
+                <label for="transition-target">Transition target</label>
+                <select id="transition-target"></select>
+              </div>
+              <div class="field">
+                <label for="transition-label">Transition label</label>
+                <input id="transition-label" type="text" maxlength="120" value="Continue" autocomplete="off">
+              </div>
+              <button id="add-transition-btn" type="submit" class="primary">Add transition</button>
+            </form>
+            <ul id="transition-list" aria-label="Transition list" class="plain-list"></ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="remove-dialog" aria-labelledby="remove-title" aria-describedby="remove-desc">
+    <h2 id="remove-title">Remove screen?</h2>
+    <p id="remove-desc"></p>
+    <div class="button-row">
+      <button id="remove-cancel" type="button" autofocus>Cancel</button>
+      <button id="remove-confirm" type="button" class="danger-solid">Remove</button>
+    </div>
+  </dialog>
+</body>
+</html>
