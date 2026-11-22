@@ -61,6 +61,7 @@ The default branch is `main`. The repository has no contribution guide, so these
 - Open a draft pull request that names the issue (`Closes #n`) and the epic, only after the local checks passed and both gates ran on the current diff; mark it ready only when CI on it is green. Do not push or open a pull request unless the owner asked in the current session; a `/next-ticket` run counts as that request. The owner reviews and merges; agents never merge.
 - Do not edit `LICENSE`. Do not commit a data directory, a database file or `.claude/settings.local.json`.
 - Do not start work on an issue whose prerequisites in the epic are not merged.
+- The pull request of the last open sub-issue of a parent also says `Closes #<parent>`. An acceptance step that needs a person is done as far as an agent can and the rest is listed under "Owner checks" in the pull request.
 
 ## Evidence before calling a ticket done
 
@@ -103,9 +104,9 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 
 Details live in the linked files; this part only says where to look.
 
-- Start a ticket with `/next-ticket` (owner only; the go signal) or follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Driver: [`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
+- Start a ticket with `/next-ticket` (owner only; the go signal) or follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Driver: [`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md); it picks leaf tickets only (a `tracking` ticket or one with open sub-issues is a container), writes the review diff and evidence to `.claude/state/review/` before the gates, and waits for CI without polling. Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - Review gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; only the owner does that.
-- Permission rules: [`.claude/settings.json`](.claude/settings.json).
+- Permission rules: [`.claude/settings.json`](.claude/settings.json); edits to agent configuration ask first at any depth, and a ticket never changes agent configuration.
 - CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `test` on Linux and Windows with Python 3.12 and 3.13. Order: local checks, both gates, draft pull request, CI, then ready only on green CI. Evidence before calling a ticket done therefore includes green CI, checked by the driver after the gates.
 - Pull request text: [`.github/pull_request_template.md`](.github/pull_request_template.md). Add one line per ticket to [`CHANGELOG.md`](CHANGELOG.md) under Unreleased.
 - UI and copy: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules; skills `ui-ux-pro-max` and `unslop`).
