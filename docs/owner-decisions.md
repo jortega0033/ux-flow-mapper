@@ -8,7 +8,7 @@ All entries date from 2026-11-22.
 |---|---|---|---|
 | 1 | The instructions, tooling and playbook live on the default branch (`main`), not on a preparation branch. | 2026-11-22 | `CLAUDE.md`, `.claude/`, `docs/` |
 | 2 | Persona agents run automatically during ticket work and carry instructions tailored to this project. | 2026-11-22 | `.claude/agents/` ("In this repository" sections and "Use proactively" descriptions), `.claude/agency-agents/README.md` |
-| 3 | Every open ticket is about app implementation. Tooling is installed, not ticketed. | 2026-11-22 | `.github/ISSUE_TEMPLATE/implementation-ticket.md`, `CLAUDE.md` |
+| 3 | Every open ticket is about app implementation. Tooling is installed, not ticketed. | 2026-11-22 | `.github/ISSUE_TEMPLATE/implementation-ticket.md` |
 | 4 | Agents may take a ticket up to a ready pull request. Only the owner merges and releases. | 2026-11-22 | `CLAUDE.md` (Git workflow, Delivery workflow), `.claude/skills/next-ticket/SKILL.md`, `.claude/skills/implement-ticket/SKILL.md`, `docs/RELEASING.md`, `.claude/settings.json` |
 | 5 | No scheduler. Ticket work starts only on the owner's go signal (`/next-ticket`), because the repository is used to train AI models. | 2026-11-22 | `.claude/skills/next-ticket/SKILL.md` (`disable-model-invocation: true`), `LOOP.md` |
 | 6 | A review gate hook blocks opening or readying a pull request until the gate roles have run after the last code edit. | 2026-11-22 | `.claude/hooks/role_gate.py`, `.claude/settings.json`, `.gitignore` |

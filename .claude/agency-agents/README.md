@@ -91,3 +91,7 @@ Observed (exit code 0): Backend Architect, Frontend Developer and Test Automatio
 ## Local change: SDLC kit (2026-11-22)
 
 This pass added, without changing any role's upstream text: the review gate hook (`.claude/hooks/role_gate.py`, gate roles Code Reviewer and Reality Checker) and `.claude/settings.json`; the `next-ticket` driver and updated `implement-ticket` playbook; the skills `ui-ux-pro-max` and `unslop` (each with a `PROVENANCE.md`); `docs/ui-quality.md`, `docs/owner-decisions.md` and `docs/RELEASING.md`; CI, pull request template, issue template, CODEOWNERS and Dependabot configuration under `.github/`; `SECURITY.md` and `CHANGELOG.md`. One line naming `docs/ui-quality.md` was added to the "In this repository" checklist of Frontend Developer, Accessibility Auditor and Code Reviewer. UI Designer and UX Architect are not installed here.
+
+### Correction: stale "no CI" statements (2026-11-22)
+
+After CI was added at `.github/workflows/ci.yml`, the "In this repository" sections still said the repository has no CI. Edited: Reality Checker (the project line, and the checklist item now requires a green, linked CI run on the pull request instead of "no CI result is claimed"), Code Reviewer (project line; "or CI" dropped from the does-not-apply line) and Test Automation Engineer (project line). Only those sections changed; the upstream text is untouched. `LOOP.md` was corrected the same way.

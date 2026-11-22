@@ -73,6 +73,7 @@ Put this in the pull request description. Report only what you ran and saw.
 5. Each acceptance criterion of the issue with the check that proves it, or a plain statement that it was not verified and why.
 6. Every server or browser process you started has been stopped.
 7. If the change affects a status in `docs/architecture.md`, the README status table or the PRD "Implementation status" table, those are updated in the same pull request. New observed results go in the README "Evidence" section with date, host and commit.
+8. The CI run on the pull request (job `test`, ubuntu and windows, Python 3.12 and 3.13) is green and linked. The pull request is marked ready only after that.
 
 A claim such as "works in Chrome" without the items in point 4 does not count.
 

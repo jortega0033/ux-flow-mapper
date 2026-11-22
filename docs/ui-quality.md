@@ -19,4 +19,4 @@ Ten binding rules for every screen, component and piece of user-facing copy in t
 - A UI ticket ends with a check of each changed screen against this file, rule by rule. The result goes in the pull request under Evidence.
 - User-facing copy, documentation and pull request text go through the `unslop` skill (`.claude/skills/unslop/`) before the pull request is opened.
 - Enforcement is by the review gate: Code Reviewer checks every ticket's diff against these rules, and Frontend Developer, Accessibility Auditor and Code Reviewer name this file in their checklists. It is not enforced by a script. Rule 1 can be linted with a search for a one-sided border width of 2px or more; rule 2 cannot be detected reliably from CSS, so it needs a human or reviewer reading the styles.
-- Existing breaches are listed in a ticket of epic #1, not fixed here.
+- Existing breaches (the five findings in `flow_mapper/static/style.css`, `app.js` and `index.html`) are not fixed here. A ticket for them is pending: the owner creates it, and until then no ticket lists them.
