@@ -191,6 +191,8 @@ The local runtime and performance targets are design choices. Confirm the actual
 
 ### Implementation status
 
+The per-criterion status (implemented, planned, needs verification), the architecture of the baseline and the drift between this specification and the code are tracked in [architecture.md](architecture.md).
+
 | Item | Status |
 |---|---|
 | M1 · Durable editable flow (A1–A3) | Implemented in the baseline. Automated checks are in `tests/`; browser verification is recorded in the README only once it has been run. |
