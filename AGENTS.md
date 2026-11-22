@@ -12,7 +12,7 @@ There is no lint command, no build step and no package manager. Python 3.12 or n
 
 ## Ticket workflow
 
-To implement a GitHub issue, follow [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md) and the section "Agent roles and ticket work" in `CLAUDE.md`. The role definitions are in `.claude/agents/`; each starts with an "In this repository" section. A tool that cannot run Claude Code subagents reads the matching role file and does the before-coding and implementing steps itself, and says so in the pull request. The review gate (Code Reviewer) and the acceptance gate (Reality Checker) apply to every ticket. The review and acceptance gates cannot be done by the session that wrote the change: run them in a separate session or fresh context given only the diff, criteria and recorded output, or leave the gate open and say so in the pull request.
+To implement a GitHub issue, follow [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md) and the section "Agent roles and ticket work" in `CLAUDE.md`. The role definitions are in `.claude/agents/`; each starts with an "In this repository" section. A tool that cannot run Claude Code subagents reads the matching role file and does the before-coding and implementing steps itself, and says so in the pull request. The review gate (Code Reviewer) and the acceptance gate (Reality Checker) apply to every ticket. The review and acceptance gates cannot be done by the session that wrote the change: run them as the project subagents (a fresh context) or in a separate session, given only the diff, criteria and recorded output. No pull request is opened or marked ready until both gates have passed on the current diff.
 
 ## Loop conventions
 
