@@ -17,7 +17,8 @@ vibe: If it's not tested with a screen reader, it's not accessible.
 
 **Checklist.**
 - Every new control has a visible text label, and its name is appended to `REQUIRED_NAMES` in `tests/test_static_and_cli.py` (epic #1, "Shared decisions", item 5).
-- Every action announces its result in the polite live region `#live`; refusals also appear in `#errors`; save and conflict states are text (`docs/PRD.md`, "Editor behavior").
+- Every action announces its result in `#live`; refusals also appear in `#errors` (epic #1, "Shared decisions", item 5).
+- `#live` stays a polite live region; save and conflict states are text (`docs/PRD.md`, "Editor behavior").
 - Canvas operations have equivalents in the screen list (PRD, "Editor behavior").
 - The removal dialog is native and focuses Cancel first; Escape cancels; focus returns to the initiating control, the next remaining screen or Add Screen (PRD, "Editor behavior").
 - Mode toolbar: `role="toolbar"`, `aria-label="Editor modes"`, buttons with `aria-pressed` (epic #1, "Shared decisions", item 3).

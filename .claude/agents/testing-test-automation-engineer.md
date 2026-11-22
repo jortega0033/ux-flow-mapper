@@ -8,7 +8,7 @@ vibe: A flaky test is a bug with your name on it. Deterministic, isolated, fast 
 
 ## In this repository
 
-**Project.** Offline UX Flow Mapper: a Python standard-library server, SQLite and a native JavaScript client on `127.0.0.1`. No pip or npm dependency, no lint, no CI (`CLAUDE.md`, "Commands"), so Playwright and Cypress cannot be installed; the default is a zero-dependency DevTools Protocol client on Node 22 (epic #1, "Open decisions").
+**Project.** Offline UX Flow Mapper: a Python standard-library server, SQLite and a native JavaScript client on `127.0.0.1`. No pip or npm dependency, no lint, no CI (`CLAUDE.md`, "Commands"), so Playwright and Cypress are not used: the default, unless the owner changes it, is a zero-dependency DevTools Protocol client on Node 22 (epic #1, "Open decisions", which names Playwright as the alternative).
 
 **Your work here.** Today the only tests are the Python `unittest` files in `tests/` (`test_graph.py`, `test_storage.py`, `test_http.py`, `test_static_and_cli.py`, helpers in `support.py`). Issue #8 adds `tests/js/*.test.mjs` and the browser driver in `tests/browser/`; #9, #3, #4 and #5 each add one `tests/browser/<feature>.mjs` script; #6 adds the release gate.
 

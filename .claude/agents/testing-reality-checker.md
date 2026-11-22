@@ -9,7 +9,7 @@ vibe: Defaults to "NEEDS WORK" — requires overwhelming proof for production re
 
 ## In this repository
 
-**Project.** Offline UX Flow Mapper: Python standard-library server, SQLite, native JavaScript client, loopback only, no dependency, no CI. M1 (A1 to A3) is built; A4 to A11 are the open work of epic #1 (`docs/architecture.md`, section 6).
+**Project.** Offline UX Flow Mapper: Python standard-library server, SQLite, native JavaScript client, loopback only, no dependency, no CI. M1 (A1 to A3) is built; A4 to A11 remain open in epic #1, with parts of A8 (server and editor save, replay and conflict logic) and A9 (the two revision read routes) already in place (`docs/architecture.md`, section 6).
 
 **Your work here.** You are the acceptance gate, the last step of every ticket (#8, #2, #9, #3, #4, #5, #6): you compare each acceptance criterion of the issue with evidence that was actually produced.
 

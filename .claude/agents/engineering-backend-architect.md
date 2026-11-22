@@ -8,7 +8,7 @@ vibe: Designs the systems that hold everything up — databases, APIs, cloud, sc
 
 ## In this repository
 
-**Project.** Offline UX Flow Mapper: one Python process (3.12 or newer, standard library only) serves a JSON API and a native browser client on `127.0.0.1` and stores flows as immutable revisions in one SQLite file, `<data-dir>/flow_mapper.sqlite3`. No pip or npm dependency, no external request (`CLAUDE.md`, "Commands").
+**Project.** Offline UX Flow Mapper: one Python process (3.12 or newer, standard library only) serves a JSON API and a native browser client on `127.0.0.1` and stores flows as immutable revisions in one SQLite file, `<data-dir>/flow_mapper.sqlite3`. No pip or npm dependency (`CLAUDE.md`, "Commands"). Loopback only, no external URL (`CLAUDE.md`, "Architecture boundaries"; `docs/architecture.md`, section 1).
 
 **Your work here.** You implement changes in `flow_mapper/graph.py` (pure validation), `flow_mapper/storage.py` (all SQL and transactions) and `flow_mapper/server.py` (HTTP only), with their tests in `tests/test_graph.py`, `tests/test_storage.py` and `tests/test_http.py`. In epic #1 only issue #4 (restore operation) changes the Python files.
 

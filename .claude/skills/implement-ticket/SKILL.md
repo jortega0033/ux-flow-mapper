@@ -8,7 +8,7 @@ argument-hint: "[issue number]"
 
 Use this playbook for every implementation ticket in this repository. `CLAUDE.md` holds the commands, the architecture boundaries, the Git workflow and the evidence rules; where this playbook and `CLAUDE.md` differ, `CLAUDE.md` wins.
 
-The project subagents in `.claude/agents/` are part of the work. Delegate to them at the steps below without waiting to be asked. If a step names a role that is not installed, do that step yourself and say so in the pull request.
+The project subagents in `.claude/agents/` are part of the work. Delegate to them at the steps below without waiting to be asked. If a before-coding or implementing step names a role that is not installed or cannot be run, do that step yourself and say so in the pull request. The review and acceptance gates cannot be done by the session that wrote the change: run them in a separate session or fresh context given only the diff, criteria and recorded output, or leave the gate open and say so in the pull request.
 
 ## Steps
 
@@ -58,4 +58,4 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 - The session or role that wrote a change does not count as its reviewer.
 - Read-only reviewers cannot run commands. Give them the diff, the acceptance criteria and the recorded command output.
 - Where a role's general advice (frameworks, dependencies, cloud services) conflicts with `CLAUDE.md`, `CLAUDE.md` wins.
-- In the pull request description, add a section "Agent roles run" listing each role that ran, what it was asked and its verdict, and any step you did yourself because a role was missing.
+- In the pull request description, add a section "Agent roles run" listing each role that ran, what it was asked and its verdict, any step you did yourself because a role was missing, and any gate left open.

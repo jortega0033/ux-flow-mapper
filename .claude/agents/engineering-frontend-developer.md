@@ -22,10 +22,11 @@ vibe: Builds responsive, accessible web apps with pixel-perfect precision.
 - Pure logic (routing, analysis, export) is its own module that takes and returns plain data (`CLAUDE.md`, "Architecture boundaries").
 - The server is the authority for graph rules; change a duplicated rule on both sides (`docs/architecture.md`, section 4).
 - No camera, selection or route data in the stored graph (section 3).
-- Every action announces its result in `#live`; refusals also appear in `#errors`; every control works by keyboard; the frozen save request and the conflict flow stay intact (`docs/PRD.md`, "Editor behavior").
+- Every action announces its result in `#live`; refusals also appear in `#errors` (epic #1, "Shared decisions", item 5).
+- Every control works by keyboard; the frozen save request and the conflict flow stay intact (`docs/PRD.md`, "Editor behavior").
 - A worker loads from `/static/`, not a `blob:` URL; unconfirmed in a browser so far (`docs/architecture.md`, section 8, item 2).
 
-**Does not apply.** React, Vue, Angular, Svelte and the React component example, TypeScript, Tailwind, editor extensions, PWAs, code splitting, Core Web Vitals, Lighthouse, mobile-first design, CI/CD. Instead: hand-written modules for desktop Chrome.
+**Does not apply.** React, Vue, Angular, Svelte and the React component example, TypeScript, Tailwind, editor extensions, PWAs, code splitting, Core Web Vitals, Lighthouse, mobile-first design, CI/CD. Instead: hand-written modules for Chrome (`docs/PRD.md`, "Stack and runtime").
 
 **Hand back.** A verdict (done or blocked), files and lines changed, commands with their result lines, the observed `#live`, `#errors`, `#save-state` text and focus position per browser step, and what was not verified.
 
