@@ -58,7 +58,7 @@ The default branch is `main`. The repository has no contribution guide, so these
 - Never commit to `main` directly and never force-push.
 - One branch per issue, cut from the tip of `origin/main`: `feature/<issue-number>-<short-name>`.
 - Small commits with a present-tense subject that says what changed (`feat:`, `fix:`, `test:`, `docs:`, `chore:` prefixes are used in this history).
-- Open a draft pull request that names the issue (`Closes #n`) and the epic. Do not push or open a pull request unless the owner asked in the current session; a `/next-ticket` run counts as that request. The owner reviews and merges; agents never merge.
+- Open a draft pull request that names the issue (`Closes #n`) and the epic, only after the local checks passed and both gates ran on the current diff; mark it ready only when CI on it is green. Do not push or open a pull request unless the owner asked in the current session; a `/next-ticket` run counts as that request. The owner reviews and merges; agents never merge.
 - Do not edit `LICENSE`. Do not commit a data directory, a database file or `.claude/settings.local.json`.
 - Do not start work on an issue whose prerequisites in the epic are not merged.
 
@@ -73,7 +73,7 @@ Put this in the pull request description. Report only what you ran and saw.
 5. Each acceptance criterion of the issue with the check that proves it, or a plain statement that it was not verified and why.
 6. Every server or browser process you started has been stopped.
 7. If the change affects a status in `docs/architecture.md`, the README status table or the PRD "Implementation status" table, those are updated in the same pull request. New observed results go in the README "Evidence" section with date, host and commit.
-8. The CI run on the pull request (job `test`, ubuntu and windows, Python 3.12 and 3.13) is green and linked. The pull request is marked ready only after that.
+8. After the draft pull request is open: the CI run on it (job `test`, ubuntu and windows, Python 3.12 and 3.13) is green and linked. The driver checks this, not Reality Checker, and the pull request is marked ready only after that. If CI fails, fix, re-run the local checks and both gates, and push.
 
 A claim such as "works in Chrome" without the items in point 4 does not count.
 
@@ -90,7 +90,7 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 | After coding | Accessibility Auditor, when UI, keyboard handling, focus order or markup changed | `Read, Grep, Glob` |
 | Gates, on every ticket | Code Reviewer on the full diff (review gate), then Reality Checker on the acceptance criteria and the evidence (acceptance gate) | `Read, Grep, Glob` |
 
-- Both gates run on every ticket, however small, before it is called done or a pull request is opened. Fix material findings and run the gate again.
+- Both gates run on every ticket, however small, after the local checks pass and before a pull request is opened or marked ready. Fix material findings and run the gate again.
 - The session or role that wrote a change does not count as its reviewer.
 - The read-only roles cannot run commands. Give them the diff, the acceptance criteria and the recorded command output.
 - List the roles that ran and their verdicts in the pull request description under "Agent roles run".
@@ -106,7 +106,7 @@ Details live in the linked files; this part only says where to look.
 - Start a ticket with `/next-ticket` (owner only; the go signal) or follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Driver: [`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - Review gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; only the owner does that.
 - Permission rules: [`.claude/settings.json`](.claude/settings.json).
-- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `test` on Linux and Windows with Python 3.12 and 3.13. It must be green before a pull request is marked ready. Evidence before calling a ticket done therefore includes green CI.
+- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `test` on Linux and Windows with Python 3.12 and 3.13. Order: local checks, both gates, draft pull request, CI, then ready only on green CI. Evidence before calling a ticket done therefore includes green CI, checked by the driver after the gates.
 - Pull request text: [`.github/pull_request_template.md`](.github/pull_request_template.md). Add one line per ticket to [`CHANGELOG.md`](CHANGELOG.md) under Unreleased.
 - UI and copy: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules; skills `ui-ux-pro-max` and `unslop`).
 - Owner decisions on record: [`docs/owner-decisions.md`](docs/owner-decisions.md). Releases: [`docs/RELEASING.md`](docs/RELEASING.md); security reports: [`SECURITY.md`](SECURITY.md).

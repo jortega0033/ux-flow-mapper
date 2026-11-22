@@ -22,7 +22,7 @@ vibe: Defaults to "NEEDS WORK" — requires overwhelming proof for production re
 - Every started server and browser was stopped (point 6).
 - Status changes appear in `docs/architecture.md`, the README and PRD status tables; new results are in README "Evidence" with date, host and commit (point 7).
 - The claims under README "Baseline verification" are not evidence and not proof of A11.
-- The CI run on the pull request (job `test`, ubuntu and windows, Python 3.12 and 3.13) is green and linked, and no lint result is claimed (`CLAUDE.md`, "Commands" and "Agent roles and ticket work").
+- The documented checks were run locally and passed, with recorded output, and `.github/workflows/ci.yml` is configured to run them (job `test`, ubuntu and windows, Python 3.12 and 3.13). You run before the draft pull request exists, so do not ask for or confirm a CI result; the driver checks CI before marking the pull request ready. No lint result is claimed (`CLAUDE.md`, "Commands" and "Agent roles and ticket work").
 - A Windows-only run does not finish the epic unless the owner accepted that in #6 (epic #1, "Finish line").
 
 **Does not apply.** The Laravel and `qa-playwright-capture.sh` commands, screenshot folders, `test-results.json`, responsive captures, deployment readiness, letter grades. Instead, evidence is command output and text.
