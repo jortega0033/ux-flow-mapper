@@ -70,6 +70,20 @@ Fetch the same paths at a newer revision, re-apply the `tools:` line to the five
 
 One sentence beginning "Use proactively" was appended to the `description:` line of every Agency Agents role in `.claude/agents/` (not to `loop-verifier`). Claude Code uses that field to decide when to delegate, so the roles now run during ticket work without being named. Nothing else in the role files changed.
 
-This supersedes any statement above that a role file is unmodified or that the `tools:` line is the only local change. To compare a role with the pinned upstream file, remove that sentence (and the `tools:` line where one was added) first.
+A section headed `## In this repository` was then inserted in every one of those role files, directly after the closing `---` of the frontmatter and before the upstream text (again not in `loop-verifier`). It is project-specific text written for this repository, not upstream text: it states the stack and constraints, the files the role owns or reviews, the commands, the invariants to check, which parts of the generic text do not apply, and what the role hands back. It ends with the sentence "This section and CLAUDE.md override the generic text below wherever they differ." The upstream text below it is unchanged.
+
+This supersedes any statement above that a role file is unmodified, that "nothing else in the role files changed", or that the `tools:` line is the only local change. To compare a role with the pinned upstream file, first remove the "Use proactively" sentence, the whole "In this repository" section (from its heading up to the line before the upstream `# ...` title) and the `tools:` line where one was added. When updating to a newer upstream revision, re-apply all three, and re-check the section against the repository.
 
 The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md`.
+
+### Verification (2026-11-22)
+
+Run once from the repository root with Claude Code 2.1.323, headless, after the "In this repository" sections were inserted:
+
+```text
+claude -p "List every project subagent defined in .claude/agents with its exact name and tools, say for each whether its instructions begin with a section titled In this repository, and say whether a skill named implement-ticket is available. Plain list, no commentary." --model haiku
+```
+
+Observed (exit code 0): Backend Architect, Frontend Developer and Test Automation Engineer were listed with no `tools:` line (all tools inherited); Codebase Onboarding Engineer, Code Reviewer, Software Architect, Accessibility Auditor and Reality Checker with `Read, Grep, Glob`; each of the eight was reported as starting with the "In this repository" section. `loop-verifier` was listed with `Read, Grep, Glob` and without that section. The skill `implement-ticket` was reported as available.
+
+**Not shown:** the answer cited file line numbers, so the model read the files to produce it. It confirms that the files are in place, that the frontmatter is intact and that the skill is registered. It does not prove that a delegated subagent receives the new section, and no subagent was launched in this check.

@@ -76,22 +76,24 @@ Put this in the pull request description. Report only what you ran and saw.
 
 A claim such as "works in Chrome" without the items in point 4 does not count.
 
-## Agents and the loop
+## Agent roles and ticket work
 
-- Project subagents are in `.claude/agents/`. Their source, licence and purpose are in [`.claude/agency-agents/README.md`](.claude/agency-agents/README.md). The reviewer roles (Software Architect, Code Reviewer, Codebase Onboarding Engineer, Accessibility Auditor, Reality Checker) are limited to `Read, Grep, Glob`. Use a reviewer before opening a pull request for anything larger than a small fix. Where a role's general advice conflicts with this file (frameworks, dependencies, cloud services), this file wins.
-- Loop Engineering is set up at L1: a report-only triage run that a person starts by hand. See [`LOOP.md`](LOOP.md). Do not add a schedule, automated fixes or auto-merge. A run rewrites the tracked files `STATE.md` and `loop-run-log.md`; start it only on the `loop/triage` branch that `LOOP.md` describes, never on `main` or a feature branch.
+Project subagents are in `.claude/agents/`. Their source, licence, local changes and purpose are in [`.claude/agency-agents/README.md`](.claude/agency-agents/README.md). Each role file starts with an "In this repository" section tailored to this project: the stack and constraints, the files the role owns or reviews, the commands, the invariants to check and what to hand back. That section and this file override the generic upstream text below it (frameworks, dependencies, cloud services). `loop-verifier` in the same folder belongs to the loop and takes no part in ticket work.
 
-## Ticket implementation: agent roles run automatically
+When asked to implement, continue or finish a GitHub issue, follow the playbook in [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Claude Code loads it on its own for ticket work; `/implement-ticket <issue number>` starts it by hand. Delegate to the roles without waiting to be asked: each role's `description` ends with a "Use proactively ..." sentence, which is what makes Claude Code delegate to it.
 
-When asked to implement, continue or finish a GitHub issue, follow the playbook in [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Claude Code loads it on its own for ticket work; `/implement-ticket <issue number>` starts it by hand.
+| When | Roles | Access |
+|---|---|---|
+| Before coding | Codebase Onboarding Engineer (unfamiliar area); Software Architect (a change to a module boundary, data model, storage schema, public API or dependency) | `Read, Grep, Glob` |
+| While coding | Backend Architect (`flow_mapper/*.py`); Frontend Developer (`flow_mapper/static/`); Test Automation Engineer (tests, fixtures, browser harness) | can edit |
+| After coding | Accessibility Auditor, when UI, keyboard handling, focus order or markup changed | `Read, Grep, Glob` |
+| Gates, on every ticket | Code Reviewer on the full diff (review gate), then Reality Checker on the acceptance criteria and the evidence (acceptance gate) | `Read, Grep, Glob` |
 
-Delegate to the project subagents in `.claude/agents/` without waiting to be asked:
-
-- **Before coding:** Codebase Onboarding Engineer and Software Architect, as their descriptions say.
-- **While coding:** the implementing role that matches the files being changed.
-- **After coding:** each specialist reviewer whose trigger matches the change.
-- **On every ticket, before it is called done:** Code Reviewer, then Reality Checker.
-- The session that wrote a change does not count as its reviewer.
+- Both gates run on every ticket, however small, before it is called done or a pull request is opened. Fix material findings and run the gate again.
+- The session or role that wrote a change does not count as its reviewer.
+- The read-only roles cannot run commands. Give them the diff, the acceptance criteria and the recorded command output.
 - List the roles that ran and their verdicts in the pull request description under "Agent roles run".
 
-Each role's `description` ends with a "Use proactively ..." sentence, which is what makes Claude Code delegate to it without being told.
+## Loop
+
+- Loop Engineering is set up at L1: a report-only triage run that a person starts by hand. See [`LOOP.md`](LOOP.md). Do not add a schedule, automated fixes or auto-merge. A run rewrites the tracked files `STATE.md` and `loop-run-log.md`; start it only on the `loop/triage` branch that `LOOP.md` describes, never on `main` or a feature branch.

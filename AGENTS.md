@@ -1,6 +1,6 @@
 # AGENTS.md
 
-The working rules for any coding agent in this repository are in [`CLAUDE.md`](CLAUDE.md). This file repeats only the commands and the loop rules so that tools which read `AGENTS.md` find them.
+The working rules for any coding agent in this repository are in [`CLAUDE.md`](CLAUDE.md). This file repeats only the commands, a pointer to the ticket workflow and the loop rules so that tools which read `AGENTS.md` find them.
 
 ## Test commands
 
@@ -9,6 +9,10 @@ python -m unittest discover -s tests -v
 ```
 
 There is no lint command, no build step and no package manager. Python 3.12 or newer, standard library only. See `CLAUDE.md` for the run command and for the checks that are planned but do not exist yet.
+
+## Ticket workflow
+
+To implement a GitHub issue, follow [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md) and the section "Agent roles and ticket work" in `CLAUDE.md`. The role definitions are in `.claude/agents/`; each starts with an "In this repository" section. A tool that cannot run Claude Code subagents reads the matching role file and does that step itself, and says so in the pull request. The review gate (Code Reviewer) and the acceptance gate (Reality Checker) apply to every ticket.
 
 ## Loop conventions
 
