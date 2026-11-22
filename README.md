@@ -73,7 +73,7 @@ Saves are idempotent per `requestId`, reject stale base versions with `409 versi
 - No pan or zoom controls (planned in UFM-03).
 - Scenarios exist in the data but are not editable or analyzed in M1.
 - No history view, restore, SVG export or JSON import in the UI.
-- See the baseline verification below for the environments and workflow tested.
+- See "Evidence" below for the environments and workflow that were observed, and the section after it for earlier claims that still need verification.
 
 ## Layout
 
@@ -95,7 +95,11 @@ Observed on 2026-11-22 on Windows 11 with Python 3.13.14 at commit `7672e0c`, du
 
 Not covered by these runs: adding a screen, editing a label and adding a transition in a browser, the two-tab conflict flow in a browser, and any run with external requests blocked. The details are in [docs/architecture.md](docs/architecture.md), section 9.
 
-## Baseline verification
+## Baseline verification (claimed in the original commit, not reproduced)
 
-- The unit suite passed on Windows with Python 3.13 and on Ubuntu 24.04 in WSL2 with Python 3.12 (73 tests on Ubuntu). On Linux, use `python3` in the launch and test commands if `python` is unavailable.
-- Windows Chrome 157 ran the workflow with external browser requests blocked. Created two screens, moved a screen with the keyboard, added a transition, then saved and reopened the flow after a server restart. The browser reported no uncaught page errors.
+The two statements below were written in the commit that added the baseline (`7672e0c`). No command output, request log, date or host record exists for them, and they were **not reproduced** during the 2026-11-22 preparation pass. Read them as claims that **need verification**, not as evidence. In particular, a browser run with external requests blocked has not been observed by anyone who recorded it; it is the open check A11 in [docs/PRD.md](docs/PRD.md) and belongs to the release gate issue.
+
+- Claimed, partly reproduced: the unit suite passed on Windows with Python 3.13 and on Ubuntu 24.04 in WSL2 with Python 3.12 (73 tests on Ubuntu). The Windows run was reproduced (see "Evidence"). The Ubuntu run was not.
+- Claimed, not reproduced: Windows Chrome 157 ran the workflow with external browser requests blocked; two screens were created, a screen was moved with the keyboard, a transition was added, and the flow was saved and reopened after a server restart; the browser reported no uncaught page errors.
+
+On Linux, use `python3` in the launch and test commands if `python` is unavailable.

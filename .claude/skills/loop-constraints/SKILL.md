@@ -30,7 +30,7 @@ Always begin with a one-line confirmation:
 Constraints loaded from loop-constraints.md: N rules active.
 ```
 
-If no `loop-constraints.md` exists, say so and proceed with default safety rules from `docs/safety.md`.
+If no `loop-constraints.md` exists, say so and stop the run. In this repository a run without the constraints file is not allowed. (The generated text pointed to `docs/safety.md`, which does not exist here.)
 
 ## Interaction with other skills
 
@@ -41,7 +41,7 @@ If no `loop-constraints.md` exists, say so and proceed with default safety rules
 
 ## Default constraints (when no file exists)
 
-If `loop-constraints.md` is absent, enforce these minimums:
+In this repository a missing `loop-constraints.md` ends the run (see above). The generated minimums are kept as a floor that applies in every case:
 - Never edit `.env`, `.env.*`, `auth/`, `payments/`, `secrets/`, `credentials/`
 - Never auto-merge to main
 - Never disable tests

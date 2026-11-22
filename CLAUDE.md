@@ -79,4 +79,4 @@ A claim such as "works in Chrome" without the items in point 4 does not count.
 ## Agents and the loop
 
 - Project subagents are in `.claude/agents/`. Their source, licence and purpose are in [`.claude/agency-agents/README.md`](.claude/agency-agents/README.md). The reviewer roles (Software Architect, Code Reviewer, Codebase Onboarding Engineer, Accessibility Auditor, Reality Checker) are limited to `Read, Grep, Glob`. Use a reviewer before opening a pull request for anything larger than a small fix. Where a role's general advice conflicts with this file (frameworks, dependencies, cloud services), this file wins.
-- Loop Engineering is set up at L1: a report-only triage run that a person starts by hand. See [`LOOP.md`](LOOP.md). Do not add a schedule, automated fixes or auto-merge.
+- Loop Engineering is set up at L1: a report-only triage run that a person starts by hand. See [`LOOP.md`](LOOP.md). Do not add a schedule, automated fixes or auto-merge. A run rewrites the tracked files `STATE.md` and `loop-run-log.md`; start it only on the `loop/triage` branch that `LOOP.md` describes, never on `main` or a feature branch.

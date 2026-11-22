@@ -12,7 +12,16 @@ Nothing runs on its own. The generated starter suggested `/loop 1d $loop-triage`
 
 ## Next manual triage run
 
-From the repository root, in an interactive Claude Code session, paste:
+A run rewrites two tracked files, `STATE.md` and `loop-run-log.md`, and leaves them modified in the working tree. So that this never lands on `main` or in a feature branch by accident, the person who starts the run prepares a branch first (the loop itself creates no branch and no commit):
+
+```text
+git fetch origin
+git switch -C loop/triage origin/main
+```
+
+Start only from a clean working tree. Never run the loop on `main` or on a `feature/...` branch. After the run, read `STATE.md`, then either keep the report (commit only `STATE.md` and `loop-run-log.md` on `loop/triage` and open a pull request, as [`CLAUDE.md`](CLAUDE.md) describes) or drop it with `git restore STATE.md loop-run-log.md`. Both steps are done by a person.
+
+From the repository root, on that branch, in an interactive Claude Code session, paste:
 
 ```text
 Run the loop-constraints skill, then the loop-budget skill, then the loop-triage skill once, in report-only mode.
@@ -50,8 +59,8 @@ Update STATE.md and append one entry to loop-run-log.md.
 | `loop-run-log.md` | One JSON entry per run. |
 | `loop-budget.md` | Daily caps and the kill switch. |
 | `loop-constraints.md` | Binding rules, read first on every run. |
-| `.claude/skills/loop-triage/`, `loop-budget/`, `loop-constraints/` | The three skills a run uses, as generated. |
-| `.claude/agents/loop-verifier.md` | Checker for a later L2 setup. Limited to `Read, Grep, Glob, Bash` so it can run tests but not edit. Not used at L1. |
+| `.claude/skills/loop-triage/`, `loop-budget/`, `loop-constraints/` | The three skills a run uses, as generated, with one change: the `loop-constraints` skill stops when `loop-constraints.md` is missing (the generated text fell back to a `docs/safety.md` that this repository does not have). |
+| `.claude/agents/loop-verifier.md` | Checker for a later L2 setup. Not used at L1. Limited to `Read, Grep, Glob`, like the other reviewer roles, so nothing in the L1 setup can run commands or edit. Its instructions tell it to run the tests itself; without `Bash` it answers `ESCALATE_HUMAN` instead. Moving to L2 means the owner adds `Bash` back to its `tools:` line in the same change that updates `loop-constraints.md` and this file. |
 
 ## Recorded health check
 
@@ -62,7 +71,16 @@ Run on 2026-11-22 from the repository root, after the adaptations above:
 | `npx --yes @cobusgreyling/loop@0.2.0 doctor .` | exit 0, `Status: HEALTHY`, `Ready: 100/100 L2`, `state=STATE.md LOOP.md=yes budget=yes run-log=yes gate=no` |
 | `npx --yes @cobusgreyling/loop@0.2.0 status .` | exit 0, `Pattern: daily-triage`, `State: STATE.md · never`, `constraints=yes`, no recent runs |
 
-"Ready: 100/100 L2" is the tool's score for which files exist. It is not the operating level. The operating level is L1 report-only. Doctor's suggested next actions (a `docs/safety.md`, issue and pull request templates, workflows, a pattern registry) were not followed: this repository has no CI, and the denylist lives in `loop-constraints.md`. `gate=no` means no CI gate workflow exists, which is intended.
+Run again on 2026-11-22 after the files were committed and after `loop-verifier` was limited to `Read, Grep, Glob`:
+
+| Command | Result |
+|---|---|
+| `npx --yes @cobusgreyling/loop@0.2.0 doctor .` | exit 0, `Status: HEALTHY`, `Ready: 100/100 L3`, `state=STATE.md LOOP.md=yes budget=yes run-log=yes gate=no` |
+| `npx --yes @cobusgreyling/loop@0.2.0 status .` | exit 0, `Pattern: daily-triage`, `Ready: 100/100 L3`, `State: STATE.md · never`, `constraints=yes`, no recent runs |
+
+The label moved from L2 to L3 although no loop run has taken place. The tool counts any Git commit that touched `STATE.md` or `loop-run-log.md` in the last 14 days as "loop activity" (read in the tool's `loop-audit` code, `detectLoopActivity`), and the commit that added those two files is such a commit. The label will fall back once that commit is older than 14 days. It says nothing about this repository being ready for L3.
+
+"Ready: 100/100 L2" or "L3" is the tool's score for which files exist and how recently they changed. It is not the operating level. The operating level is L1 report-only. Doctor's suggested next actions (a `docs/safety.md`, issue and pull request templates, workflows, a pattern registry) were not followed: this repository has no CI, and the denylist lives in `loop-constraints.md`. `gate=no` means no CI gate workflow exists, which is intended.
 
 ## Links
 

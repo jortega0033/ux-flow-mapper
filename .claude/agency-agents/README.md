@@ -55,6 +55,13 @@ claude -p "List the project-level subagents defined in .claude/agents with the t
 
 The reviewer roles must report exactly `Read, Grep, Glob`.
 
+### What was observed, and what was not
+
+Observed on 2026-11-22 with Claude Code 2.1.323, headless, from the repository root:
+
+- Software Architect, Code Reviewer, Codebase Onboarding Engineer, Accessibility Auditor and Reality Checker were listed with `Read, Grep, Glob`, and a launched Reality Checker reported exactly those three tools. The user-level copies of these roles have no `tools:` line, so this shows that the project copies were the ones loaded.
+- **Not shown:** that Backend Architect, Frontend Developer and Test Automation Engineer are loaded from the project copies. These three files are unchanged from upstream and have no `tools:` line, exactly like a user-level install, and the listing shows names and tools only, not where a definition comes from. Project precedence for these three is assumed from how Claude Code resolves names, not observed. On a machine without a user-level install, check that the three names are listed at all.
+
 ## Updating
 
 Fetch the same paths at a newer revision, re-apply the `tools:` line to the five reviewer roles, and update the revision and hashes in this file in the same commit.

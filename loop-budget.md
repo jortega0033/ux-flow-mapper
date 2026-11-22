@@ -21,6 +21,6 @@
 
 ## Estimate spend
 
-```bash
-npx @cobusgreyling/loop-cost --pattern daily-triage --level L1
-```
+Use the `tokens_estimate` values in `loop-run-log.md`: the `loop-budget` skill sums the entries of the last 24 hours at the start of each run.
+
+The generated starter suggested `npx @cobusgreyling/loop-cost --pattern daily-triage --level L1` here. That package was not pinned, inspected or run during the preparation pass, so the command is not part of this setup. Do not run it before someone has checked the package and pinned a version.
