@@ -70,7 +70,7 @@ Saves are idempotent per `requestId`, reject stale base versions with `409 versi
 
 - One author, fixed 100 by 70 grid, fixed 6 by 3 screen size, one arrow per ordered pair of screens.
 - Connectors are straight lines and can cross screens. Deterministic routing is future work.
-- No pan or zoom controls (planned in UFM-03).
+- No pan or zoom controls (planned in UFM-03, issue #9).
 - Scenarios exist in the data but are not editable or analyzed in M1.
 - No history view, restore, SVG export or JSON import in the UI.
 - See "Evidence" below for the environments and workflow that were observed, and the section after it for earlier claims that still need verification.
@@ -97,7 +97,7 @@ Not covered by these runs: adding a screen, editing a label and adding a transit
 
 ## Baseline verification (claimed in the original commit, not reproduced)
 
-The two statements below were written in the commit that added the baseline (`7672e0c`). No command output, request log, date or host record exists for them, and they were **not reproduced** during the 2026-11-22 preparation pass. Read them as claims that **need verification**, not as evidence. In particular, a browser run with external requests blocked has not been observed by anyone who recorded it; it is the open check A11 in [docs/PRD.md](docs/PRD.md) and belongs to the release gate issue.
+The two statements below were written in the commit that added the baseline (`7672e0c`). No command output, request log, date or host record exists for them, and they were **not reproduced** during the 2026-11-22 preparation pass. Read them as claims that **need verification**, not as evidence. In particular, a browser run with external requests blocked has not been observed by anyone who recorded it; it is the open check A11 in [docs/PRD.md](docs/PRD.md) and belongs to the release gate issue (#6).
 
 - Claimed, partly reproduced: the unit suite passed on Windows with Python 3.13 and on Ubuntu 24.04 in WSL2 with Python 3.12 (73 tests on Ubuntu). The Windows run was reproduced (see "Evidence"). The Ubuntu run was not.
 - Claimed, not reproduced: Windows Chrome 157 ran the workflow with external browser requests blocked; two screens were created, a screen was moved with the keyboard, a transition was added, and the flow was saved and reopened after a server restart; the browser reported no uncaught page errors.
