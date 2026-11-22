@@ -16,12 +16,15 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 2. **Read the rules.** `CLAUDE.md`, then the architecture notes it links to.
 3. **Orient and check the approach.** Delegate as the table "Before coding" says. Settle open design questions before writing code.
 4. **Branch** as the Git workflow in `CLAUDE.md` says. Never work on the default branch.
-5. **Implement** inside the ticket's stated scope. Delegate the work to the implementing role that matches the files being changed (table "While coding"). Do not widen scope; note anything else you find as a follow-up.
-6. **Test.** Add or change tests for every acceptance criterion and material edge case, then run the checks listed in `CLAUDE.md`. Record each command and its result.
-7. **Specialist review.** Run every role in the table "After coding" whose trigger matches the change.
-8. **Review gate, always.** Run Code Reviewer on the full diff. Fix every material finding, re-run the checks, and have the reviewer look again until no material finding is left.
-9. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
-10. **Hand off.** Capture the evidence `CLAUDE.md` asks for and open a draft pull request that names the issue. Do not merge.
+5. **UI tickets: design first.** Before changing any screen, run the `ui-ux-pro-max` skill (`python .claude/skills/ui-ux-pro-max/scripts/search.py "<product type>" --design-system`) and read `docs/ui-quality.md`.
+6. **Implement** inside the ticket's stated scope. Delegate the work to the implementing role that matches the files being changed (table "While coding"). Do not widen scope; note anything else you find as a follow-up.
+7. **Test.** Add or change tests for every acceptance criterion and material edge case, then run the checks listed in `CLAUDE.md`. Record each command and its result.
+8. **Specialist review.** Run every role in the table "After coding" whose trigger matches the change.
+9. **Review gate, always.** Run Code Reviewer on the full diff. Fix every material finding, re-run the checks, and have the reviewer look again until no material finding is left.
+10. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
+11. **UI check and copy.** For UI tickets, check each changed screen against `docs/ui-quality.md`, rule by rule, and record the result. Run user-facing copy, documentation and pull request text through the `unslop` skill before the pull request is opened.
+12. **Changelog.** Add one line for the ticket to `CHANGELOG.md` under Unreleased.
+13. **Hand off.** Capture the evidence `CLAUDE.md` asks for and fill in `.github/pull_request_template.md`. Do not push or open a pull request unless the owner asked in the current session; a `/next-ticket` run counts as that request. Open a draft pull request that names the issue only after both gates passed on the current diff. Wait for CI to be green, then mark it ready. Only the owner merges; never merge.
 
 ## Roles
 

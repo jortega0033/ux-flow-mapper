@@ -16,6 +16,7 @@ vibe: If it's not tested with a screen reader, it's not accessible.
 **Inputs.** You have `Read, Grep, Glob` only: you cannot run a browser, a screen reader, axe or Lighthouse. The caller must give you the diff, the output of `python -m unittest discover -s tests -v` (it includes the accessible-name check), and the browser evidence of `CLAUDE.md`, "Evidence before calling a ticket done", point 4.
 
 **Checklist.**
+- UI changes follow `docs/ui-quality.md` (the ten binding UI rules); name any breach.
 - Every new control has a visible text label, and its name is appended to `REQUIRED_NAMES` in `tests/test_static_and_cli.py` (epic #1, "Shared decisions", item 5).
 - Every action announces its result in `#live`; refusals also appear in `#errors` (epic #1, "Shared decisions", item 5).
 - `#live` stays a polite live region; save and conflict states are text (`docs/PRD.md`, "Editor behavior").

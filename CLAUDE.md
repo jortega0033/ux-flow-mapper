@@ -22,7 +22,7 @@ Notes:
 - `--port 0` picks a free port and prints it. `--data-dir` is required and is created if missing. Use a temporary directory for experiments; `data/` and `*.sqlite*` are ignored by Git.
 - The server runs until it is stopped. Stop every server you start (Ctrl+C in a terminal, or stop the process by its ID) and check that none is left before you finish.
 - The tests start real loopback servers on free ports and one real `python -m flow_mapper` process. Run the suite once, not in a watch loop.
-- There is no lint command, no build step and no CI. Do not claim a lint or CI result.
+- There is no lint command and no build step. CI runs the test command (see "Delivery workflow"). Do not claim a lint result.
 - **Planned, not available yet:** JavaScript unit tests (`node --test "tests/js/*.test.mjs"`) and an automated browser run. No JavaScript test exists today. They are introduced by issue #8 (test foundation), the first ticket of epic #1; until that is merged, the Python suite and a manual browser run are the only checks.
 
 ## Sources of truth
@@ -53,12 +53,12 @@ The layering and its reasons are in [`docs/architecture.md`](docs/architecture.m
 
 ## Git workflow
 
-The default branch is `main`. It has no branch protection and no CI, and the repository has no contribution guide, so these rules are the workflow.
+The default branch is `main`. The repository has no contribution guide, so these rules are the workflow. Branch protection is set by the owner on GitHub.
 
 - Never commit to `main` directly and never force-push.
 - One branch per issue, cut from the tip of `origin/main`: `feature/<issue-number>-<short-name>`.
 - Small commits with a present-tense subject that says what changed (`feat:`, `fix:`, `test:`, `docs:`, `chore:` prefixes are used in this history).
-- Open a draft pull request that names the issue (`Closes #n`) and the epic. The owner reviews and merges; agents do not merge.
+- Open a draft pull request that names the issue (`Closes #n`) and the epic. Do not push or open a pull request unless the owner asked in the current session; a `/next-ticket` run counts as that request. The owner reviews and merges; agents never merge.
 - Do not edit `LICENSE`. Do not commit a data directory, a database file or `.claude/settings.local.json`.
 - Do not start work on an issue whose prerequisites in the epic are not merged.
 
@@ -97,3 +97,16 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 ## Loop
 
 - Loop Engineering is set up at L1: a report-only triage run that a person starts by hand. See [`LOOP.md`](LOOP.md). Do not add a schedule, automated fixes or auto-merge. A run rewrites the tracked files `STATE.md` and `loop-run-log.md`; start it only on the `loop/triage` branch that `LOOP.md` describes, never on `main` or a feature branch.
+
+## Delivery workflow
+
+Details live in the linked files; this part only says where to look.
+
+- Start a ticket with `/next-ticket` (owner only; the go signal) or follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Driver: [`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md). Ticket labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
+- Review gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; only the owner does that.
+- Permission rules: [`.claude/settings.json`](.claude/settings.json).
+- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `test` on Linux and Windows with Python 3.12 and 3.13. It must be green before a pull request is marked ready. Evidence before calling a ticket done therefore includes green CI.
+- Pull request text: [`.github/pull_request_template.md`](.github/pull_request_template.md). Add one line per ticket to [`CHANGELOG.md`](CHANGELOG.md) under Unreleased.
+- UI and copy: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules; skills `ui-ux-pro-max` and `unslop`).
+- Owner decisions on record: [`docs/owner-decisions.md`](docs/owner-decisions.md). Releases: [`docs/RELEASING.md`](docs/RELEASING.md); security reports: [`SECURITY.md`](SECURITY.md).
+- Only the owner merges and releases.

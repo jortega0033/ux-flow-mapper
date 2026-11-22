@@ -8,7 +8,7 @@ The working rules for any coding agent in this repository are in [`CLAUDE.md`](C
 python -m unittest discover -s tests -v
 ```
 
-There is no lint command, no build step and no package manager. Python 3.12 or newer, standard library only. See `CLAUDE.md` for the run command and for the checks that are planned but do not exist yet.
+There is no lint command, no build step and no package manager. CI runs the test command above. Python 3.12 or newer, standard library only. See `CLAUDE.md` for the run command and for the checks that are planned but do not exist yet.
 
 ## Ticket workflow
 

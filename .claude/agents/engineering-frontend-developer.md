@@ -18,6 +18,7 @@ vibe: Builds responsive, accessible web apps with pixel-perfect precision.
 - Planned, not available until #8 is merged: `node --test "tests/js/*.test.mjs"`
 
 **Checklist.**
+- UI changes follow `docs/ui-quality.md` (the ten binding UI rules); name any breach.
 - No inline script, style or handler; user text only through `textContent` or `setAttribute`; no `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `eval(` (`docs/architecture.md`, section 8, item 3).
 - Pure logic (routing, analysis, export) is its own module that takes and returns plain data (`CLAUDE.md`, "Architecture boundaries").
 - The server is the authority for graph rules; change a duplicated rule on both sides (`docs/architecture.md`, section 4).

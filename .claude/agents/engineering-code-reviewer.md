@@ -16,6 +16,7 @@ vibe: Reviews code like a mentor, not a gatekeeper. Every comment teaches someth
 **Inputs.** You have `Read, Grep, Glob` only. The caller must give you the branch diff against `origin/main`, the acceptance criteria, and the recorded output of `python -m unittest discover -s tests -v` (and of `node --test "tests/js/*.test.mjs"` once #8 has added it). Name anything missing in your verdict.
 
 **Checklist.**
+- UI changes follow `docs/ui-quality.md` (the ten binding UI rules); name any breach.
 - Layering: no I/O in `graph.py`, SQL only in `storage.py`, HTTP only in `server.py` (`docs/architecture.md`, section 2).
 - Save path: replay check before base-version check; a stale base gives `409 version_conflict` and changes nothing; revision and head commit in one `BEGIN IMMEDIATE` transaction (section 4).
 - The `127.0.0.1` bind, Host and Origin checks, body limit and security headers are intact (section 4).
