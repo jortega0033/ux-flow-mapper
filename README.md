@@ -12,7 +12,7 @@ Everything runs on `127.0.0.1` with the Python standard library and a native HTM
 | Straight-line connectors | Implemented (placeholder for M2) |
 | Orthogonal routing (A4–A5), scenario analysis (A6–A7), history and restore (A8–A9), SVG/JSON export and import (A10), full offline integration run (A11) | Not built |
 
-Verification status: automated tests and the browser demo have **not been recorded as run** in this tree. Results belong in the "Evidence" section below once someone has run them.
+Verification status: observed runs are listed in the "Evidence" section below, with date, host and commit. Add new results there once someone has run them. What exists, what is planned and what still needs verification is tracked in [docs/architecture.md](docs/architecture.md).
 
 ## Requirements
 
@@ -81,11 +81,19 @@ Saves are idempotent per `requestId`, reject stale base versions with `409 versi
 flow_mapper/        Python package (server, storage, graph validation) and static/ front end
 tests/              unittest suite with synthetic fixtures
 docs/PRD.md         requirements and technical specification
+docs/architecture.md  current architecture, invariants, PRD drift and status
+CLAUDE.md           working rules for coding agents (commands, boundaries, Git workflow, evidence)
 ```
 
 ## Evidence
 
-No verification has been recorded yet.
+Observed on 2026-11-22 on Windows 11 with Python 3.13.14 at commit `7672e0c`, during a preparation pass that changed no product code:
+
+- `python -m unittest discover -s tests -v` reported `Ran 73 tests in 16.198s` and `OK`.
+- `python -m flow_mapper --data-dir <temporary directory> --port 18765` served the page and `GET /api/v1/health` returned `{"status": "ok", "schemaVersion": 1, "storage": "ready"}`.
+- In the Claude desktop browser pane (Chromium 156): created the demo flow, moved **Shipping** with **Move right** and with Arrow Down on the canvas, had a move to X 27 refused with "Cannot move: Shipping would overlap Order placed", cancelled the removal dialog with Escape, confirmed removal, saved ("Saved · revision 2"), restarted the server on the same data directory and reopened the flow at revision 2 with seven screens and two transitions. All nine recorded requests went to `127.0.0.1:18765` and the console showed no errors.
+
+Not covered by these runs: adding a screen, editing a label and adding a transition in a browser, the two-tab conflict flow in a browser, and any run with external requests blocked. The details are in [docs/architecture.md](docs/architecture.md), section 9.
 
 ## Baseline verification
 
