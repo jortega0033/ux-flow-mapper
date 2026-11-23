@@ -110,5 +110,6 @@ Details live in the linked files; this part only says where to look.
 - CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `test` on Linux and Windows with Python 3.12 and 3.13. Order: local checks, both gates, draft pull request, CI, then ready only on green CI. Evidence before calling a ticket done therefore includes green CI, checked by the driver after the gates.
 - Pull request text: [`.github/pull_request_template.md`](.github/pull_request_template.md). Add one line per ticket to [`CHANGELOG.md`](CHANGELOG.md) under Unreleased.
 - UI and copy: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules; skills `ui-ux-pro-max` and `unslop`).
+- Design tokens: [`docs/design-tokens.md`](docs/design-tokens.md); UI uses the Pipenzo tokens in `flow_mapper/static/tokens.css` and adds no colour literals.
 - Owner decisions on record: [`docs/owner-decisions.md`](docs/owner-decisions.md). Releases: [`docs/RELEASING.md`](docs/RELEASING.md); security reports: [`SECURITY.md`](SECURITY.md).
 - Only the owner merges and releases.

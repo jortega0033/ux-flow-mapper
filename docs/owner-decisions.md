@@ -2,7 +2,7 @@
 
 A dated record of the decisions the owner made for this repository, so the rules do not depend on anyone's memory of a conversation. Changing any entry needs the owner. An agent that finds a decision blocking a ticket stops and says so.
 
-All entries date from 2026-11-22.
+All entries date from 2026-11-22, except entry 13 (2026-11-23).
 
 | # | Decision | Date | Implemented in |
 |---|---|---|---|
@@ -18,6 +18,7 @@ All entries date from 2026-11-22.
 | 10 | Open decisions on tickets are settled with the ticket's stated default (list below). | 2026-11-22 | This file; the issues named below |
 | 11 | Rust is verified in CI only. Not applicable: this repository has no Rust. | 2026-11-22 | none |
 | 12 | The ten UI rules in `docs/ui-quality.md` are binding, and the `ui-ux-pro-max` and `unslop` skills are installed in the repository and used for UI work and for copy. | 2026-11-22 | `docs/ui-quality.md`, `.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/`, role checklists in `.claude/agents/` |
+| 13 | Visual system: Pipenzo Flow look tokens (docs/design-tokens.md). SDLC kit version: jortega0033/sdlc-kit v1.0.0. | 2026-11-23 | `flow_mapper/static/tokens.css`, `flow_mapper/static/style.css`, `docs/design-tokens.md` |
 
 ## Entry 10: open decisions settled by the ticket default
 
