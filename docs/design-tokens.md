@@ -1,11 +1,11 @@
 # Design tokens
 
-The colours, type, spacing, radius and motion values of this client come from the Pipenzo "Flow look" token file, `flow_mapper/static/tokens.css`. It is a byte copy and is never edited here.
+The colours of this client come from the Pipenzo "Flow look" token file, `flow_mapper/static/tokens.css`. The file is a byte copy (LF line endings, git blob `41d6d6db`) and is never edited here. The type, space, radius and motion tokens are defined in it, but this client has not adopted them yet; adopting them would be a layout change for a later ticket.
 
 ## Source and resync
 
 - Source: `jortega0033/clip-to-reel-studio`, `extension/sidepanel/tokens.css`, commit `a13378ce73e5b27213c9a200fc960ec93afef054` (2026-11-21).
-- Resync: copy that file over `flow_mapper/static/tokens.css`. Nothing else changes. `index.html` loads it before `style.css`; the server already serves any `.css` file in the static folder, so there is no allowlist to update.
+- Resync: `git -C <clip-to-reel-studio checkout> show <commit>:extension/sidepanel/tokens.css > flow_mapper/static/tokens.css`, then check `git hash-object flow_mapper/static/tokens.css` against the source blob and that `git ls-files --eol` shows `i/lf`. Do not copy the working-tree file (it can be CRLF). Nothing else changes. `index.html` loads it before `style.css`; the server already serves any `.css` file in the static folder, so there is no allowlist to update.
 
 ## Rule
 
