@@ -1,5 +1,7 @@
 # Offline UX Flow Mapper
 
+> This document specifies phase 1 of the program in [#54](https://github.com/jortega0033/ux-flow-mapper/issues/54). Hour figures in it are early estimates for that phase; its open tickets add up to 88 to 137 hours (2026-11-24). Work that it defers is planned in the later phases only where the program names it.
+
 Product requirements and technical specification · Proposed v1
 
 ## Product requirements

@@ -4,6 +4,25 @@ A local tool for mapping how screens in an app connect. The first milestone (M1)
 
 Everything runs on `127.0.0.1` with the Python standard library and a native HTML/CSS/JavaScript front end. There are no pip or npm dependencies and no external network requests.
 
+## Program goal
+
+Build a journey modelling and verification tool: draw a product's flows, give them data, roles and time, and have the tool prove or disprove what users can reach, generate the tests, and check a running local application against the model.
+
+The program is planned ([#54](https://github.com/jortega0033/ux-flow-mapper/issues/54)). Phase 1 is the current epic [#1](https://github.com/jortega0033/ux-flow-mapper/issues/1) and the only phase with tickets.
+
+**Score.** Share of seeded defects found in a generated corpus of journey models, with no false alarm, judged by an independent brute-force explorer.
+
+| Phase | Content | Hours (rough) | Issue |
+|---|---|---|---|
+| 1 | The current epic and its tickets | 88 to 137 | [#1](https://github.com/jortega0033/ux-flow-mapper/issues/1) |
+| 2 | Formal model | 100 to 170 | [#55](https://github.com/jortega0033/ux-flow-mapper/issues/55) |
+| 3 | Model checker | 150 to 260 | [#56](https://github.com/jortega0033/ux-flow-mapper/issues/56) |
+| 4 | Layout at scale | 120 to 200 | [#57](https://github.com/jortega0033/ux-flow-mapper/issues/57) |
+| 5 | Tests and conformance | 130 to 220 | [#58](https://github.com/jortega0033/ux-flow-mapper/issues/58) |
+| 6 | Teams and history | 100 to 170 | [#59](https://github.com/jortega0033/ux-flow-mapper/issues/59) |
+
+About 690 to 1160 engineer hours in total: rough estimates, not measurements. The numbers in the score and the finish lines are targets until a run shows them. Only phase 1 has tickets to work; the sub-issues of a later phase are written when it starts. No single session is expected to reach the end.
+
 ## Status
 
 | Area | State |

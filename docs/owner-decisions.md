@@ -30,3 +30,13 @@ All entries date from 2026-11-22, except entry 13 (2026-11-23).
 | #1, #6 | Gate host. | Stated default: Linux with Chrome. The epic is not finished on a Windows-only run unless the owner accepts that in #6. Flag in issue: if no Linux host with Chrome is available, record a blocker in #6 and ask; do not switch silently. |
 | #1, #4 | Comparing revisions. | Stated default: the read-only preview in #4 is the comparison; a visual or textual diff is out of scope and would be a follow-up issue. |
 | #1 | Known gap: "connected actions" in the inspector and a pointer shortcut to connect two screens. | Stated default: left out of this batch; a small follow-up issue if the owner wants them. |
+
+## Program decisions (owner, 2026-11-24)
+
+The owner accepted the goal and each suggestion below. They apply from the phase they name; the rules of `CLAUDE.md` hold for phase 1 as written.
+
+| Decision | Implemented in |
+|---|---|
+| The repository has a program goal above phase 1: a journey modelling and verification tool, in six phases. | Program issue #54 |
+| Checking a running application needs a browser driver. Suggested: the driver the repository already plans, against local sample applications only. | Program issue #54 |
+| The rule against packages outside the Python standard library stays. | Program issue #54 |
