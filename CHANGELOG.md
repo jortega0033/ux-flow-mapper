@@ -6,4 +6,5 @@ All notable changes are listed here, newest first. The format follows [Keep a Ch
 
 ### Added
 
+- Program goal, score and phases 1 to 6 (#54).
 - Delivery tooling: review gate hook, CI workflow, pull request template, `/next-ticket` driver, UI quality rules and the `ui-ux-pro-max` and `unslop` skills.
